@@ -1,0 +1,22 @@
+SELECT 
+ N,
+ CASE WHEN P IS NULL THEN 'Root'
+     WHEN N IN(SELECT P FROM BST) THEN 'Inner'
+ ELSE 'Leaf' 
+ END 
+ FROM BST
+ order by N 
+
+ --EXPLANATION--
+ -STEP 0: WE NEED TO UNDERSTAND THREE KINDS OF EMPLOYEES:
+         + ROOT: WHO HAS THE HIGHEST POSITION IN COMPANY.
+         + INNER: WHO HAS ABILITY TO CONTROL STAFF BUT ALSO HAS THEIR BOSS.
+         + LEAF: JUST NORMAL STAFF.
+         
+- STEP 1: SELECT N AND USE 'CASE WHEN' TO CLASSIFY THE EMPLOYEES'LEVEL.
+          + WHY WE DONT USE 'P IN(SELECT N FROM BST)' BECAUSE IT DOESN'T WORK AT ALL:
+                Every Boss (P) is inherently an Employee (N) in the company. 
+                Therefore, checking if P exists in N will ALWAYS return TRUE and fail to classify the levels properly.
+          
+- STEP 2: ORDER BY IT ASCENDINGLY.
+
